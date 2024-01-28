@@ -5,7 +5,7 @@ export const routes: Routes = [
     path: 'reactive',
     children: [
       // {
-      //   path: '',
+      //   path: '',nn
       //   redirectTo: 'basic',
       //   pathMatch: 'full'
       // },
@@ -14,7 +14,7 @@ export const routes: Routes = [
         loadComponent: () => import('./reactive/pages/basic/basic.component').then(c => c.BasicComponent)
       },
       {
-        path: 'dynimac',
+        path: 'dynamic',
         loadComponent: () => import('./reactive/pages/dynamic/dynamic.component').then(c => c.DynamicComponent)
       },
       {
