@@ -51,6 +51,12 @@ export class DynamicComponent {
     );
   }
 
+  isInvalidFieldInArray(formArray: FormArray, index: number) {
+    return (
+      formArray.controls[index].errors && formArray.controls[index].touched
+    );
+  }
+
   getFieldErrors(field: string) {
     if (!this.myForm.controls[field]) return null;
 

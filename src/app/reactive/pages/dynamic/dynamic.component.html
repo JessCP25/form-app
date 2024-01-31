@@ -12,7 +12,7 @@
         placeholder="Nombre de la persona"
       />
       <span *ngIf="isInvalidField('name')" class="form-text text-danger">
-        {{ getFieldErrors('name') }}
+        {{ getFieldErrors("name") }}
       </span>
     </div>
   </div>
@@ -44,7 +44,12 @@
 
           <button class="btn btn-outline-danger" type="button">Eliminar</button>
         </div>
-        <span class="form-text text-danger"> Este campo es requerido </span>
+        <span
+          *ngIf="isInvalidFieldInArray(favoriteGames, i)"
+          class="form-text text-danger"
+        >
+          Este campo es requerido
+        </span>
       </div>
     </div>
   </div>
