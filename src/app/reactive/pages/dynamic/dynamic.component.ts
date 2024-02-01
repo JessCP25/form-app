@@ -34,6 +34,10 @@ export class DynamicComponent {
 
   constructor(private fb: FormBuilder) {}
 
+  onDeleteFavorite(index: number) {
+    this.favoriteGames.removeAt(index);
+  }
+
   onSave() {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
