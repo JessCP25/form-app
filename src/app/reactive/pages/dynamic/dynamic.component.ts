@@ -8,6 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ValidatorsService } from '../../../shared/services/validators.service';
 
 @Component({
   selector: 'app-dynamic',
@@ -35,15 +36,16 @@ export class DynamicComponent {
     return this.myForm.get('favoriteGames') as FormArray;
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private validatorsService: ValidatorsService
+  ) {}
 
   onAddToFavorite() {
     if (this.newFavorite.invalid) return;
 
     const newGame = this.newFavorite.value;
-    this.favoriteGames.push(
-      this.fb.control(newGame, Validators.required)
-    );
+    this.favoriteGames.push(this.fb.control(newGame, Validators.required));
 
     this.newFavorite.reset();
   }
@@ -65,9 +67,7 @@ export class DynamicComponent {
   }
 
   isInvalidField(field: string) {
-    return (
-      this.myForm.controls[field].errors && this.myForm.controls[field].touched
-    );
+    return this.validatorsService.isInvalidField(this.myForm, field);
   }
 
   isInvalidFieldInArray(formArray: FormArray, index: number) {

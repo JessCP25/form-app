@@ -6,6 +6,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { ValidatorsService } from '../../../shared/services/validators.service';
 
 @Component({
   selector: 'app-switches',
@@ -25,7 +26,10 @@ export class SwitchesComponent {
     termsAndConditions: [false, Validators.requiredTrue],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private validatorsService: ValidatorsService
+  ) {}
 
   onSave() {
     if (this.myForm.invalid) {
@@ -33,15 +37,13 @@ export class SwitchesComponent {
       return;
     }
 
-    const {termsAndConditions, ...newPerson} = this.myForm.value;
+    const { termsAndConditions, ...newPerson } = this.myForm.value;
 
     console.log(this.myForm.value);
     console.log(newPerson);
   }
 
   isInvalidField(field: string) {
-    return (
-      this.myForm.controls[field].errors && this.myForm.controls[field].touched
-    );
+    return this.validatorsService.isInvalidField(this.myForm, field);
   }
 }
