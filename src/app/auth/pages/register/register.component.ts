@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ValidatorsService } from '../../../shared/services/validators.service';
+import { EmailValidator } from '../../../shared/validators/email-validator.service';
 
 @Component({
   selector: 'app-register',
@@ -23,15 +24,37 @@ export class RegisterComponent {
   public myForm: FormGroup = this.fb.group({
     name: [
       '',
-      [Validators.required, Validators.pattern(this.validatorsService.firstNameAndLastnamePattern)],
+      [
+        Validators.required,
+        Validators.pattern(this.validatorsService.firstNameAndLastnamePattern),
+      ],
     ],
-    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
+    // email: [
+    //   '',
+    //   [
+    //     Validators.required,
+    //     Validators.pattern(this.validatorsService.emailPattern),
+    //   ],
+    //   [this.emailValidator],
+    // ],
+    email: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(this.validatorsService.emailPattern),
+      ],
+      [ new EmailValidator()],
+    ],
     username: ['', [Validators.required, this.validatorsService.cantBeStrider]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     password2: ['', [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder, private validatorsService: ValidatorsService) {}
+  constructor(
+    private fb: FormBuilder,
+    private validatorsService: ValidatorsService,
+    private emailValidator: EmailValidator
+  ) {}
 
   isValdField(field: string) {
     return this.validatorsService.isInvalidField(this.myForm, field);
