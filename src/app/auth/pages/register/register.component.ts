@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { cantBeStrider } from '../../../shared/validators/validators';
+import { cantBeStrider, emailPattern, firstNameAndLastnamePattern } from '../../../shared/validators/validators';
 
 @Component({
   selector: 'app-register',
@@ -21,8 +21,8 @@ import { cantBeStrider } from '../../../shared/validators/validators';
 })
 export class RegisterComponent {
   public myForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required]],
-    email: ['', [Validators.required]],
+    name: ['', [Validators.required, Validators.pattern(firstNameAndLastnamePattern)]],
+    email: ['', [Validators.required, Validators.pattern(emailPattern)]],
     username: ['', [Validators.required, cantBeStrider]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     password2: ['', [Validators.required]],
